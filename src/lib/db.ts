@@ -17,17 +17,18 @@ class MyDatabase extends Dexie {
       users: "++id, name, status, agent, creationDate",
     });
 
-    this.populateInitialData();
+    this.on("populate", async () => {
+      await this.populateInitialData();
+    });
   }
 
-  // Popula a tabela com dados iniciais se estiver vazia
   async populateInitialData() {
     const count = await this.users.count();
     if (count === 0) {
       await this.users.bulkAdd([
-        { name: "João Silva", status: "Ativo", agent: "Atendente 1", creationDate: new Date().toISOString() },
-        { name: "Maria Oliveira", status: "Inativo", agent: "Atendente 2", creationDate: new Date().toISOString() },
-        { name: "Carlos Souza", status: "Ativo", agent: "Atendente 3", creationDate: new Date().toISOString() },
+        { name: "Gabriel Devequi", status: "Ativo", agent: "Atendente 1", creationDate: new Date().toISOString() },
+        { name: "Marcio Fofinho", status: "Ativo", agent: "Atendente 2", creationDate: new Date().toISOString() },
+        { name: "Karina elen", status: "Inativo", agent: "Atendente 3", creationDate: new Date().toISOString() }
       ]);
     }
   }
